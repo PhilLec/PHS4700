@@ -67,7 +67,19 @@ function [pcm MI aa] = Devoir1(pos, theta, wz, Force)
    
    MI = mi_jambe_1_g + mi_jambe_2_g + mi_tronc_g + mi_cou_g + mi_tete_g + mi_bras_1_g + mi_bras_2_g;
    
-   # TODO
-   aa = [0; 0; 0];
+   # rayon r_f
+   zf = 0.75 + 0.70 + 0.10 + 0.10;
+   rf = [0, 0.10, zf]';
+   
+   # rayon en considérant theta
+   rf = ry * rf;
+   
+   # calcul du torque
+   t = cross(rf, Force);
+   
+   # calcul de l'accélération angulaire
+   aa = inv(MI) * t;
+   
+   # aa = [0; 0; 0];
    
  end
